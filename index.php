@@ -12,6 +12,7 @@
 	<head>
 		<title>Welcome!</title>
 		<link href="css/w3.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" type="text/css" href="css/fonts.css">
 	</head>
 	<body class="w3-light-grey">
 	<div class="w3-container" style="padding-top:10%; margin: 0 auto; width: 30%;" id="main">

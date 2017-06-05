@@ -12,27 +12,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/w3.css">
-    <link rel="stylesheet" href="css/Template_files/css">
-    <link rel="stylesheet" href="css/Template_files/css(1)">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="css/w3.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/fonts.css">
     </head>
-    <?php include('/elements/navbar.php'); ?>
+    <?php include('elements/navbar.php'); ?>
 
     <body class="w3-red">
         <header class="w3-container w3-white w3-text-red w3-center" style="padding:128px 16px">
             <h1 class="w3-margin w3-jumbo">Moratuwa Furniture</h1>
             <p class="w3-xlarge"></p>
-            <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Place Order</button>
-
-        </header>  
-
-<?php 
-    if (condition) {
-        # code...
-    }
-?>        
+            <a class="w3-button w3-black w3-padding-large w3-large w3-margin-top" href="addOrder.php">Place Order</a>
+        </header>   
 
         <div class="container" style="margin: 0 auto; width: 89%;" id="main">
         <?php echo '<p class="w3-center">You\'re logged in as <i>', $_SESSION['login_user'], '</i>'; ?>

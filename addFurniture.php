@@ -1,96 +1,102 @@
+<?php
+	require 'db/session.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Add New Customer</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/w3.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/fonts.css">
+	<title>Add Customer</title>
 </head>
-<body>
-<?php include 'elements/navbar.php'; ?>
-	<div class="w3-container" style="margin: 0 auto; width: 74%">
-		<div class="w3-card-4 w3-round">
-			<div class="w3-container w3-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
-				<h1>Add New Customer :</h1>
-			</div>
-			<div class="w3-container w3-padding-large" style="margin: 0 auto; width: 95%" id="form">
-				<form action="" method="POST" >
-				<table class="w3-table">
-					<tr>
-						<td>
-							<label style="">First Name : </label>
-						</td>
-						<td>
-							<label style="">Last Name : </label>
-						</td>
-					</tr>
-					<tr>
-						<td><input class="w3-input" type="text" id="fname" name="fname" required></td>
-						<td><input class="w3-input" type="text" id="lname" name="lname" required></td>
-					</tr>
-					<tr><td><label>Contact Number : </label></td></tr>	
-					<tr><td><input class="w3-input" type="text" id="tel_no" name="tel_no" required></td></tr>
-					<tr>
-						<td><label>House No : </label></td>
-						<td><label>Street 1 : </label></td>
-					</tr>
-					<tr>
-						<td><input class="w3-input" type="text" id="house" name="house" required></td>
-						<td><input class="w3-input" type="text" id="street1" name="street1" required></td>
-					</tr>
-					<tr>
-						
-						<td><label>Street 2 : </label></td>
-						<td><label>City : </label></td>
-					</tr>
-					<tr>
-						
-						<td><input class="w3-input" type="text" id="street2" name="street2"></td>
-						<td><input class="w3-input" type="text" id="city" name="city" required></td>
-					</tr>
-					<tr>
-						
-						<td><label>District : </label></td>
-						<td><label>Postal Code : </label></td>
-					</tr>
-					<tr>
-						
-						<td><input class="w3-input" type="text" id="district" name="district" required></td>
-						<td><input class="w3-input" type="text" id="zip" name="zip" required></td>
-					</tr>
-				</table>
-				&nbsp;
-				<div class="w3-container w3-padding-large w3-center">
-						<input class="w3-btn w3-ripple w3-black" type="submit" name="submit">								
-						<input class="w3-btn w3-ripple w3-red" type="reset" name="reset">
-					</div>
-				</form>
-			</div>
-		</div>		
-	</div>
-</body>
-</html>
+<body class="w3-red">
+	<?php include 'elements/navbar.php'; ?>
+	
+
 
 <?php
+	switch ($_SESSION['login_access']) {
+		case '1':
+		case '3':
+		case '4':
+			// Start cases 1,2,3
+			$error = "";
+			if (isset($_POST['submit'])) {
+				$name=$_POST['name'];
+				$type=$_POST['type'];
+				$desc=$_POST['desc'];
+				$price=$_POST['price'];
+				$qty=$_POST['qty'];
 
-	if (isset($_POST['submit'])) {
-
-		// Connect to the database
-
-		require 'db/connect.php';
-
-		// Generate unique key value
-
-		// Get values from form and assign them to variables
-
-		$id = $_POST['id'];
-		$name = $_POST['name'];
-		$type = $_POST['type'];
-		$desc = $_POST['desc'];
-		$type = $_POST['type'];
-		$price = $_POST['price'];
-		
-		// Assigning value for PK field
-
-		$db->query("INSERT INTO `furnitures` (`pc_id`, `pc_name`, `pc_type`, `description`, `price`, `stock_qty`) VALUES (NULL, '$id', '$name', '$type', '$price', '0')");
-	}
-
+				$insert = $db->query("INSERT INTO `tab_furniture` (`pc_id`, `pc_name`, `pc_type`, `description`, `price`, `stock_qty`) VALUES (NULL, '$name', '$type', '$desc', '$price', '$qty')");		
+				$error = "$name added";
+			}
+			 
 ?>
+			
+			<header class="w3-display-container w3-content w3-hide-small" style="max-width:1700px">
+			  <!-- <img class="" src="images/london2.jpg" alt="red" width="1700" height="800"> -->
+			  <div class="w3-white" style="margin: 5% auto; width:65%">
+			    
+			    <!-- Tabs -->
+			    <form action="" method="POST">
+			    <div id="search" class="w3-container w3-white w3-padding-16 myLink" style="display: block;">
+			      <h2>Add a new furniture piece</h2>
+			      <p>Fill the details about the piece</p>
+			      <div class="w3-row-padding" style="margin:0 -16px;" id="name">
+			        <div class="w3-col l6">
+			          <label>Name</label>
+			          <input class="w3-input w3-border" name="name" id="name" type="text" placeholder="Piece Name" required>
+			        </div>
+			      </div>
+			      <div class="w3-row-padding" style="margin:10px -16px;" id="">
+			        <div class="w3-col l3">
+			          <label>Type</label>
+			          <input class="w3-input w3-border" name="type" id="type" type="text" placeholder="Type of furniture" required>
+			        </div>
+			        <div class="w3-col l1">
+			        	<label>Stock</label>
+			        	<input class="w3-input w3-border" type="text" name="qty" placeholder="Quantity" value="0" required>
+			        </div>
+			        <div class="w3-col l2">
+			        	<label>Price</label>
+			        	<input class="w3-input w3-border w3-right" type="text" name="price" placeholder="Price" pattern="^(?=.?\d)\d{0,14}(\.?\d{0,6})?$" required title="Insert amount in ruppees">
+			        </div>
+			      </div>
+			      <div class="w3-row-padding" style="margin:0 -16px;" id="contact">
+			        <div class="w3-col">
+			          <label>Description</label>
+			          <textarea class="w3-input w3-border" name="desc" id="desc" placeholder="Description of the furniture piece" rows="5" cols="100" style="resize: none;" required></textarea>
+			        </div>
+			      </div>
+			      <p class="w3-margin-top"><input type="submit" name="submit" value="Add" class="w3-button w3-ripple w3-dark-grey"></p>
+			      <span><?php echo '<i class="w3-text-red">', $error, '</i>'; ?></span>
+			    </div>
+			    </form>
+			</header>
+
+</body>
+</html>				
+			
+<?php
+			break;
+			// End cases		
+		default:
+			// echo "<br><br>Access Denied";
+?>
+			<header class="w3-display-container w3-content" style="max-width:1700px">
+				<!-- <img class="" src="images/london2.jpg" alt="red" width="1700" height="800"> -->
+				<div class="w3-white" style="margin: 5% auto; width:65%">
+
+				<!-- Tabs -->
+				<form action="" method="POST">
+				<div id="search" class="w3-container w3-white w3-padding-16 myLink" style="display: block;">
+				  <h2>Access Denied</h2>
+				  <p>Your account may not have sufficient access to view this page</p>
+			</header>
+<?php
+			break;
+	}
+?>	
